@@ -19,8 +19,11 @@
               <tr ng-repeat="eachData in blogList">
                   <td style="cursor:pointer">
                       <a href="{{eachData.link}}" target="_blank" >
-                          <h5>   {{eachData.label}} &nbsp;&nbsp;&nbsp;<span class="badge badge-success">{{eachData.identifier}}</span> </h5>
-                          </a>
+                          <h5>   {{eachData.label}} 
+                              &nbsp;&nbsp;&nbsp;<span class="badge badge-danger" ng-if="eachData.status=='new'">New</span> 
+                              &nbsp;&nbsp;&nbsp;<span class="badge badge-success">{{eachData.identifier}}</span> 
+                          </h5>
+                     </a>
                   </td>
                 <td>
                 </td>
