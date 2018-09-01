@@ -1,42 +1,69 @@
-  <div class="container-flex">
+<style>
+.optionsIcon {
+    font-weight:bold;
+    font-size:1.4em;
+    color:maroon;
+    cursor:pointer;
+    margin-left: 30px
+}
+.optionsIconGlobal {
+    font-weight:bold;
+    font-size:2em;
+    color:#d35400;
+    cursor:pointer;
+    margin-left: 30px
+}
+
+</style>
+<div class="container-flex">
     <div class="col-lg-12">
-      <div class="card">
-        <div class="card-header">
-          Latest Blogs&nbsp;&nbsp;
-          
-          <button type="button" class="btn btn-sm btn-primary"><i class="fa fa-star"></i>&nbsp;&nbsp; {{totalNewPost}} </button>
-            &nbsp;
-            <i class="icon-reload icons pull-right" style="font-weight:bold;font-size:2em;color:maroon;cursor:pointer" ng-click="scrape()"></i>
-            <!--
-          <button type="button" class="btn btn-primary btn-sm pull-right" >Refresh</button>
-            -->
+        <div class="card">
+            <div class="card-header">
+                Latest Blogs&nbsp;&nbsp;
+                <button ng-if="totalNewPost" type="button" class="btn btn-sm btn-primary" style="border-radius:50%">{{totalNewPost}} </button>
+                &nbsp;
+                <i class="icon-reload icons pull-right optionsIconGlobal" style="color:#2c3e50" ng-click="scrape()"></i>
+                <i class="icon-refresh icons pull-right optionsIconGlobal" ng-click="getPosts('new')"></i>
+                <i class="icon-eye icons pull-right optionsIconGlobal" ng-click="getPosts('watchlater')"></i>
+            </div>
+            <div class="card-body">
+                <table class="table table-striped">
+                    <!--
+                        <thead>
+                        <tr>
+                        <th>Blog</th>
+                        <th></th>
+                        <th></th>
+                        <th></th>
+                        </tr>
+                        </thead>
+                    -->
+                    <tbody>
+                        <tr ng-repeat="eachData in blogList | orderBy : '-createdAt'">
+                            <td>
+                                 <span class="badge badge-success">{{eachData.identifier}}</span>
+                                        &nbsp;&nbsp;&nbsp;
+                                        <span class="badge badge-danger" ng-if="eachData.status=='new'">New</span>&nbsp;
+
+                            </td>
+                            <td style="cursor:pointer;width:70%">
+                                <a href="{{eachData.link}}" target="_blank" >
+                                    <h5>
+                                                                               {{eachData.label}} 
+                                    </h5>
+                                </a>
+                            </td>
+                            <td style="width:28%">
+
+                                <i class="icon-trash icons pull-right optionsIcon" ng-click="updateBlogStatus(eachData,'delete')"></i>
+                                <i class="icon-eye icons pull-right optionsIcon" ng-click="updateBlogStatus(eachData,'watchlater')"></i>
+
+                            </td>
+                        </tr>
+
+                    </tbody>
+                </table>
+            </div>
         </div>
-        <div class="card-body">
-          <table class="table table-striped">
-              <!--
-            <thead>
-              <tr>
-                <th>Blog</th>
-                <th></th>
-                <th></th>
-                <th></th>
-              </tr>
-            </thead>
-              -->
-            <tbody>
-              <tr ng-repeat="eachData in blogList | orderBy : '-createdAt'">
-                  <td style="cursor:pointer">
-                      <a href="{{eachData.link}}" target="_blank" >
-                          <h5>   {{eachData.label}} 
-                              &nbsp;&nbsp;&nbsp;<span class="badge badge-danger" ng-if="eachData.status=='new'">New</span> 
-                              &nbsp;&nbsp;&nbsp;<span class="badge badge-success">{{eachData.identifier}}</span> 
-                          </h5>
-                     </a>
-                  </td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
-      </div>
     </div>    
-  </div>
+</div>
