@@ -7,7 +7,7 @@ ScrapeCtrl.$inject = ['$scope','$http'];
 function ScrapeCtrl($scope,$http) {
     $scope.labels = ['January', 'February', 'March', 'April', 'May', 'June', 'July'];
 
-    var ipAddress = "192.168.0.108"
+    var ipAddress = "192.168.0.104"
     // function declarations 
     $scope.updateBlogStatus = updateBlogStatus;
 

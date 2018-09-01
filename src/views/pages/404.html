@@ -4,65 +4,60 @@
     font-size:1.4em;
     color:maroon;
     cursor:pointer;
-    margin-left: 30px
 }
 .optionsIconGlobal {
     font-weight:bold;
     font-size:2em;
     color:#d35400;
     cursor:pointer;
-    margin-left: 30px
+}
+.eachPost {
+    margin-bottom: 15px;
+    border-bottom: 1px solid silver;
+    
+}
+.eachPost a {
+    margin-top:8px
 }
 
 </style>
 <div class="container-flex">
-    <div class="col-lg-12">
+    <div>
         <div class="card">
             <div class="card-header">
+                <h5>
                 Latest Blogs&nbsp;&nbsp;
                 <button ng-if="totalNewPost" type="button" class="btn btn-sm btn-primary" style="border-radius:50%">{{totalNewPost}} </button>
                 &nbsp;
                 <i class="icon-reload icons pull-right optionsIconGlobal" style="color:#2c3e50" ng-click="scrape()"></i>
-                <i class="icon-refresh icons pull-right optionsIconGlobal" ng-click="getPosts('new')"></i>
-                <i class="icon-eye icons pull-right optionsIconGlobal" ng-click="getPosts('watchlater')"></i>
+                </h5>
+                <div style="margin-top:5px">
+                    <i class="icon-refresh icons  optionsIconGlobal" ng-click="getPosts('new')"></i>&nbsp;&nbsp;&nbsp;
+                    <i class="icon-eye icons  optionsIconGlobal" ng-click="getPosts('watchlater')"></i>
+                </div>
             </div>
             <div class="card-body">
-                <table class="table table-striped">
-                    <!--
-                        <thead>
-                        <tr>
-                        <th>Blog</th>
-                        <th></th>
-                        <th></th>
-                        <th></th>
-                        </tr>
-                        </thead>
-                    -->
-                    <tbody>
-                        <tr ng-repeat="eachData in blogList | orderBy : '-createdAt'">
-                            <td>
-                                 <span class="badge badge-success">{{eachData.identifier}}</span>
-                                        &nbsp;&nbsp;&nbsp;
-                                        <span class="badge badge-danger" ng-if="eachData.status=='new'">New</span>&nbsp;
+                <div>
+                    <div class="row eachPost" ng-repeat="eachData in blogList | orderBy : '-createdAt'">
+                            <h6>
 
-                            </td>
-                            <td style="cursor:pointer">
-                                <a href="{{eachData.link}}" target="_blank" >
-                                    <h5>
-                                                                               {{eachData.label}} 
-                                    </h5>
-                                </a>
-                            </td>
-                            <td>
+                                <span class="badge badge-success">{{eachData.identifier}}</span>&nbsp;&nbsp;&nbsp;
+                                <span class="badge badge-danger" ng-if="eachData.status=='new'">New</span>&nbsp;
+                            </h6>
 
-                                <i class="icon-trash icons pull-right optionsIcon" ng-click="updateBlogStatus(eachData,'delete')"></i>
-                                <i class="icon-eye icons pull-right optionsIcon" ng-click="updateBlogStatus(eachData,'watchlater')"></i>
+                            <a href="{{eachData.link}}" target="_blank" >
+                                <h5>
+                                    {{eachData.label}} 
+                                </h5>
+                            </a>
+                            <div style="width:100%;margin:2px">
 
-                            </td>
-                        </tr>
+                            <i class="icon-eye icons optionsIcon" ng-click="updateBlogStatus(eachData,'watchlater')"></i>
+                            <i class="icon-trash icons pull-right optionsIcon" ng-click="updateBlogStatus(eachData,'delete')"></i>
+                            </div>
 
-                    </tbody>
-                </table>
+                    </div>
+                <div>
             </div>
         </div>
     </div>    
