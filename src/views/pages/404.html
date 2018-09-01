@@ -45,7 +45,7 @@
                                 <span class="badge badge-danger" ng-if="eachData.status=='new'">New</span>&nbsp;
                             </h6>
 
-                            <a href="{{eachData.link}}" target="_blank" >
+                            <a href="{{eachData.link}}" target="_blank" ng-click="updateBlogStatus(eachData,'visited')">
                                 <h5>
                                     {{eachData.label}} 
                                 </h5>
@@ -55,7 +55,6 @@
                             <i class="icon-eye icons optionsIcon" ng-click="updateBlogStatus(eachData,'watchlater')"></i>
                             <i class="icon-trash icons pull-right optionsIcon" ng-click="updateBlogStatus(eachData,'delete')"></i>
                             </div>
-
                     </div>
                 <div>
             </div>
