@@ -9,6 +9,8 @@ function ScrapeCtrl($scope,$http) {
 
     //var ipAddress = "192.168.0.103:9000"
     var ipAddress = "localhost:9000"
+    //var ipAddress = "localhost"
+    //var ipAddress = "192.168.0.108"
     // function declarations 
     $scope.updateBlogStatus = updateBlogStatus;
 
