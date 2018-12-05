@@ -44,35 +44,26 @@
             </div>
             <div class="card-body">
                 <div>
-                    <div class="row eachPost" ng-repeat="eachData in blogList | orderBy : '-createdAt'" style="">
-                        <div class="col-sm-2">
-                            <div class="row">
-                                <div class="col-md-8">
-                                    <span class="badge badge-success">{{eachData.identifier}}</span>&nbsp;&nbsp;&nbsp;
-                                </div>
-                                <div class="col-md-2">
-
-                                    <span class="badge badge-danger" ng-if="eachData.status=='new'">New</span>&nbsp;
-                                </div>
-                                <div class="col-md-2">
-
-                                    <span style="margin-left:5px"><i class="icon-eye icons optionsIcon" ng-click="updateBlogStatus(eachData,'watchlater')"></i></span>
-                                </div>
-                            </div>
+                    <div class="row eachPost" ng-repeat="eachData in blogList | orderBy : '-createdAt'" style="border:1px solid red">
+                        <div class="col-md-2">
+                        </div
+                        <div class="col-md-10">
                         </div>
-                        <div class="col-sm-9">
-                            <h6>
-                                <a href="{{eachData.link}}" target="_blank" ng-click="updateBlogStatus(eachData,'visited')" style="font-size:1.3em">
-                                    {{eachData.label}} 
-                                </a>
-                            </h6>
+                        <h6 style="margin-top:2px;margin-right:10px">
+                            <span class="badge badge-success">{{eachData.identifier}}</span>&nbsp;&nbsp;&nbsp;
+                            <span class="badge badge-danger" ng-if="eachData.status=='new'">New</span>&nbsp;
+                        </h6>
 
+                        <h6>
+                            <a href="{{eachData.link}}" target="_blank" ng-click="updateBlogStatus(eachData,'visited')" style="font-size:1.3em">
+                                {{eachData.label}} 
+                            </a>
+                        </h6>
+                        <div style="width:100%;margin:2px">
+
+                            <i class="icon-eye icons optionsIcon" ng-click="updateBlogStatus(eachData,'watchlater')"></i>
+                            <i class="icon-trash icons pull-right optionsIcon" ng-click="updateBlogStatus(eachData,'delete')"></i>
                         </div>
-                        <div class="col-md-1">
-
-                            <i class="icon-trash icons  optionsIcon" ng-click="updateBlogStatus(eachData,'delete')"></i>
-                        </div>
-
                     </div>
                     <div>
                     </div>

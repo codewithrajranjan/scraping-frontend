@@ -2,7 +2,7 @@ angular
 .module('app')
 .config(['$stateProvider', '$urlRouterProvider', '$ocLazyLoadProvider', '$breadcrumbProvider', function($stateProvider, $urlRouterProvider, $ocLazyLoadProvider, $breadcrumbProvider) {
 
-  $urlRouterProvider.otherwise('/dashboard');
+  $urlRouterProvider.otherwise('/blogs');
 
   $ocLazyLoadProvider.config({
     // Set to true if you want to see what and when is dynamically loaded
@@ -114,7 +114,7 @@ angular
     templateUrl: 'views/pages/register.html'
   })
   .state('appSimple.404', {
-    url: '/404',
+    url: '/blogs',
     templateUrl: 'views/pages/404.html',
     controller : 'ScrapeCtrl',
     resolve: {
