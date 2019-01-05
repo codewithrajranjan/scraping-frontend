@@ -3,9 +3,8 @@ angular
     .module('app')
     .controller('ScrapeCtrl', ScrapeCtrl)
 
-ScrapeCtrl.$inject = ['$scope','$http'];
-function ScrapeCtrl($scope,$http) {
-    $scope.labels = ['January', 'February', 'March', 'April', 'May', 'June', 'July'];
+ScrapeCtrl.$inject = ['$scope','$http','$sce','blogService'];
+function ScrapeCtrl($scope,$http,$sce,blogService) {
 
     //var ipAddress = "192.168.0.103:9000"
     var ipAddress = "localhost:9000"
@@ -20,7 +19,6 @@ function ScrapeCtrl($scope,$http) {
         tagSelected : null
     }
     
-
     getAllTags()
 
 
@@ -32,6 +30,9 @@ function ScrapeCtrl($scope,$http) {
             $http.get('http://'+ipAddress+'/api/v1.0/blogs?tag='+tag)
                 .then(function(data){
                     $scope.blogList = data.data
+                    $scope.blogList.forEach(function(item){
+                        item.label = $sce.trustAsHtml(item.label);
+                    })
                     $scope.totalNewPost = $scope.blogList.length
                 }).catch(function(err){
                     console.log(err)
@@ -43,9 +44,9 @@ function ScrapeCtrl($scope,$http) {
     $scope.fetchBlogWithTag('mongodb-blog')
 
     function getAllTags(){
-        $http.get('http://'+ipAddress+'/api/v1.0/tag')
+        blogService.getBlogTags()
             .then(function(data){
-                $scope.tagList = data.data
+                $scope.tagList = data
             }).catch(function(err){
                 console.log(err)
             })
@@ -56,17 +57,23 @@ function ScrapeCtrl($scope,$http) {
         $http.get('http://'+ipAddress+'/api/v1.0/blogs?status='+postStatus)
             .then(function(data){
                 $scope.blogList = data.data
+                $scope.blogList.forEach(function(item){
+                        item.label = $sce.trustAsHtml(item.label);
+                })
                 $scope.totalNewPost = $scope.blogList.length
             }).catch(function(err){
                 console.log(err)
             })
 
     }
-    function updateBlogStatus(blogData,statusCode){
+    function updateBlogStatus(blogData,statusCode,indexInBlogList){
+        if(statusCode=='delete'){
+            $scope.blogList.splice(indexInBlogList,1)
+        }
         var id = blogData._id.$oid
         $http.post('http://'+ipAddress+'/api/v1.0/blog/'+id+'/status/'+statusCode)
             .then(function(data){
-                getPosts('new')
+                //getPosts('new')
             }).catch(function(err){
                 console.log(err)
             })
@@ -76,7 +83,7 @@ function ScrapeCtrl($scope,$http) {
     $scope.scrape = function(){
         $http.post('http://'+ipAddress+'/api/v1.0/scrape')
             .then(function(data){
-                getPosts('new')
+                //getPosts('new')
             }).catch(function(err){
                 console.log(err)
             })

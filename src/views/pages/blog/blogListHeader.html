@@ -1,0 +1,20 @@
+<div class="row" style="margin-top:12px">
+    <div class="col-md-2">
+        New {{totalNewPost}} 
+    </div>
+    <div class="col-md-4">
+        <select class="form-control" id="ccmonth" style="width:300px" ng-model="uiConfig.tagSelected" ng-change="fetchBlogWithTag(uiConfig.tagSelected)">
+            <option value="all" selected>All</option>
+            <option ng-repeat="eachData in tagList" value="{{eachData.value}}">{{eachData.key}}</option>
+        </select>
+    </div>
+
+    <div class="col-md-3">
+        <i class="icon-refresh icons  optionsIconGlobal" ng-click="getPosts('new')"></i>&nbsp;&nbsp;&nbsp;
+        <i class="icon-eye icons  optionsIconGlobal" ng-click="getPosts('watchlater')"></i>&nbsp;&nbsp;&nbsp;
+    </div>
+
+    <div class="col-md-3">
+        <i class="icon-reload icons" style="color:#2c3e50;font-size:1.5em;font-weight:bold;cursor:pointer" ng-click="scrape()"></i>
+    </div>
+</div>

@@ -113,21 +113,30 @@ angular
     url: '/register',
     templateUrl: 'views/pages/register.html'
   })
-  .state('appSimple.404', {
+  .state('appSimple.blog', {
     url: '/blogs',
-    templateUrl: 'views/pages/404.html',
+    templateUrl: 'views/pages/blog/blog.html',
     controller : 'ScrapeCtrl',
     resolve: {
       loadMyCtrl: ['$ocLazyLoad', function($ocLazyLoad) {
         // you can lazy load controllers
         return $ocLazyLoad.load({
-          files: ['js/controllers/scrapeController.js']
+          files: ['views/pages/blog/blogController.js']
         });
       }]
     }
   })
-  .state('appSimple.500', {
-    url: '/500',
-    templateUrl: 'views/pages/500.html'
+  .state('appSimple.question', {
+    url: '/question',
+    templateUrl: 'views/pages/question/question.html',
+    controller : 'QuestionCtrl',
+    resolve: {
+      loadMyCtrl: ['$ocLazyLoad', function($ocLazyLoad) {
+        // you can lazy load controllers
+        return $ocLazyLoad.load({
+          files: ['views/pages/question/questionController.js']
+        });
+      }]
+    }
   })
 }]);

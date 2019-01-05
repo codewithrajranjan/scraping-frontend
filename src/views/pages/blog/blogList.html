@@ -1,0 +1,28 @@
+<table class="table table-striped">
+    <tbody>
+        <tr ng-repeat="eachData in blogList track by $index">
+            <td>
+                <span class="badge badge-success">{{eachData.identifier}}</span>&nbsp;&nbsp;&nbsp;
+            </td>
+            <td>
+                <span class="badge badge-danger" ng-if="eachData.status=='new'">New</span>&nbsp;
+            </td>
+            <td>
+                <span style="margin-left:5px"><i class="icon-eye icons optionsIcon" ng-click="updateBlogStatus(eachData,'watchlater',$index)"></i></span>
+            </td>
+            <td>
+                <h6>
+                    <a href="{{eachData.link}}"  target="_blank" ng-click="updateBlogStatus(eachData,'visited',$index)" style="font-size:1.3em">
+                        <span ng-bind-html="eachData.label">
+                        </span>
+                        <span ng-if="eachData.createdAt!=''" style="font-size:0.7em;font-weight:500;color:maroon">( {{eachData.createdAt}} )</span>
+                    </a>
+                </h6>
+            </td>
+            <td>
+                <i class="icon-trash icons  optionsIcon" ng-click="updateBlogStatus(eachData,'delete',$index)"></i>
+            </td>
+        </tr>
+    </tbody>
+</table>
+

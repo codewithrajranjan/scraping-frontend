@@ -49,8 +49,33 @@
 
 -->
 
-<body class="header-fixed sidebar-fixed aside-menu-fixed aside-menu-hidden">
+<body class="header-fixed sidebar-fixed aside-menu-fixed aside-menu-hidden" ng-controller="projectController">
+<style>
+.optionsIcon {
+    font-weight:bold;
+    font-size:1.4em;
+    color:maroon;
+    cursor:pointer;
+}
+.optionsIconGlobal {
+    font-weight:bold;
+    font-size:2em;
+    color:#d35400;
+    cursor:pointer;
+}
+.eachPost {
+    margin-bottom: 15px;
+    border-bottom: 1px solid silver;
 
+}
+.eachPost a {
+    margin-top:8px
+}
+
+</style>
+
+
+  <div ng-include="'views/pages/project/header/header.html'" include-replace></div>
   <!-- User Interface -->
   <ui-view class="app"></ui-view>
 
@@ -75,11 +100,13 @@
   <script src="js/app.js"></script>
 
   <script src="js/routes.js"></script>
+  <script src="views/pages/project/projectController.js"></script>
 
-  <script src="js/demo/routes.js"></script>
 
-  <script src="js/controllers.js"></script>
+
   <script src="js/directives.js"></script>
+  <script src="views/appSettings.js"></script>
+  <script src="views/pages/blog/blogService.js"></script>
 
 </body>
 </html>
