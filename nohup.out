@@ -1,0 +1,21 @@
+[12:44:27] Using gulpfile ~/selftuts/apps/CoreUI-AngularJS/scraping-frontend/gulpfile.js
+[12:44:27] Starting 'compile-vendors'...
+[12:44:27] Starting 'compile-vendors:clean'...
+[12:44:27] Finished 'compile-vendors:clean' after 45 ms
+[12:44:27] Starting 'compile-vendors:sass'...
+[12:44:28] Finished 'compile-vendors:sass' after 434 ms
+[12:44:28] Finished 'compile-vendors' after 489 ms
+[12:44:28] Starting 'sass'...
+[12:44:31] Finished 'sass' after 3.87 s
+[12:44:31] Starting 'serve'...
+[12:44:32] Finished 'serve' after 123 ms
+[Browsersync] Access URLs:
+ ----------------------------------
+       Local: http://localhost:3000
+    External: http://10.0.2.15:3000
+ ----------------------------------
+          UI: http://localhost:3001
+ UI External: http://10.0.2.15:3001
+ ----------------------------------
+[Browsersync] Serving files from: ./
+[Browsersync] Serving files from: ./src

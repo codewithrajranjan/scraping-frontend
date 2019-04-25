@@ -12,11 +12,7 @@
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <meta name="description" content="CoreUI - Open Source Bootstrap Admin Template">
-  <meta name="author" content="Łukasz Holeczek">
-  <meta name="keyword" content="Bootstrap,Admin,Template,Open,Source,AngularJS,Angular,Angular2,Angular 2,Angular4,Angular 4,jQuery,CSS,HTML,RWD,Dashboard,React,React.js,Vue,Vue.js">
   <link rel="shortcut icon" href="img/favicon.png">
-
   <title>Blogs</title>
 
   <!-- Main styles for this application -->
@@ -71,7 +67,6 @@
 .eachPost a {
     margin-top:8px
 }
-
 </style>
 
 
@@ -84,8 +79,10 @@
   <script src="node_modules/popper.js/dist/umd/popper.min.js"></script>
   <script src="node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
 
-  <!-- AngularJS -->
   <script src="node_modules/angular/angular.min.js"></script>
+  <script src="node_modules/angular-ui-bootstrap/dist/ui-bootstrap.js"></script>
+  <!-- AngularJS -->
+  <script src="node_modules/angular-ui-bootstrap/dist/ui-bootstrap-tpls.js"></script>
 
   <!-- AngularJS plugins -->
   <script src="node_modules/angular-animate/angular-animate.min.js"></script>
@@ -106,7 +103,10 @@
 
   <script src="js/directives.js"></script>
   <script src="views/appSettings.js"></script>
+  <script src="views/pages/common/helperFunctionService.js"></script>
   <script src="views/pages/blog/blogService.js"></script>
+  <script src="views/pages/project/projectService.js"></script>
+  <script src="views/pages/question/questionService.js"></script>
 
 </body>
 </html>

@@ -23,7 +23,7 @@
                                 <label for="nf-password">&nbsp;</label>
                                 <div>
                                     <button type="button" ng-click="searchQuestion(uiConfig.filter)" class="btn btn-sm btn-primary"><i class="fa fa-dot-circle-o"></i> Search</button>
-                                    <button type="reset" class="btn btn-sm btn-danger"><i class="fa fa-ban"></i> Reset</button>
+                                    <button type="reset" class="btn btn-sm btn-danger" ng-click="resetFilter()"><i class="fa fa-ban"></i> Reset</button>
                                 </div>
                             </div>
                         </div>
@@ -32,11 +32,11 @@
                             <div class="form-group">
                                 <label for="nf-password">&nbsp;</label>
                                 <div>
-                                <i  class="icon-plus icons  optionsIconGlobal" 
-                                    style="font-weight:bold;font-size:1.5em;cursor:pointer" 
-                                    data-toggle="modal" 
-                                    data-target="#exampleModal">
-                                </i>
+                                    <i  class="icon-plus icons  optionsIconGlobal" 
+                                        style="font-weight:bold;font-size:1.5em;cursor:pointer" 
+                                        ng-click="createQuestion()"
+                                        >
+                                    </i>
                                 </div>
                             </div>
                         </div>
@@ -44,12 +44,13 @@
                     </div>
 
                 </form>
-                <div ng-include="'views/pages/question/addQuestionModal.html'" include-replace></div>
                 <table class="table table-striped">
                     <tbody>
                         <tr ng-repeat="eachData in uiConfig.questionList track by $index">
                             <td>{{eachData.question}}</td>
                             <td>{{eachData.topic}}</td>
+                            <td ng-click="updateQuestion(eachData)" style="cursor:pointer">Edit</td>
+                            <td ng-click="deleteQuestion(eachData)" style="cursor:pointer">Delete</td>
                         </tr>
                     </tbody>
                 </table>

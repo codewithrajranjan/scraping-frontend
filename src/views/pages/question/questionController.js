@@ -3,8 +3,8 @@ angular
     .module('app')
     .controller('QuestionCtrl', QuestionCtrl)
 
-QuestionCtrl.$inject = ['$scope','$http','$sce'];
-function QuestionCtrl($scope,$http,$sce) {
+QuestionCtrl.$inject = ['$scope','$http','$sce','$uibModal','questionService','helperFunctionService'];
+function QuestionCtrl($scope,$http,$sce,$uibModal,questionService,helperFunctionService) {
 
     //var ipAddress = "192.168.0.103:9000"
     var ipAddress = "localhost:9000"
@@ -15,45 +15,29 @@ function QuestionCtrl($scope,$http,$sce) {
     $scope.getQuestion = getQuestion;
     $scope.searchQuestion = searchQuestion;
     $scope.createQuestion = createQuestion;
-
-
+    $scope.updateQuestion = updateQuestion;
+    $scope.deleteQuestion = deleteQuestion;
+    $scope.resetFilter = resetFilter;
 
 
     $scope.uiConfig = {
-        model: {
-            question : null,
-            topic : null
-        },
         filter: {
             question : null,
             topic : null
         },
         topicList : [],
-        questionList : []
-
+        questionList : [],
     }
 
-    getProjectConfig();
     getQuestion(null)
-        
 
-    function getProjectConfig(){
-        $http({
-            method: 'GET',
-            url: 'http://'+ipAddress+'/api/v1.0/project',
-            headers: {'Content-Type': 'application/json'}
-        }).then(function(data){
-            var result = data.data.data
-            $scope.uiConfig.topicList = result.topic;
-        }).catch(function(err){
-            console.log(err);
-        })
-
-
+    function resetFilter(){
+        $scope.uiConfig.filter = helperFunctionService.clearObject($scope.uiConfig.filter)
+        getQuestion(null)
     }
 
     function searchQuestion(filter){
-            
+
         var queryString = makeQueryString(filter);
         if(queryString==''){
             queryString = null;
@@ -62,19 +46,45 @@ function QuestionCtrl($scope,$http,$sce) {
 
     }
 
-    function createQuestion(questionData){
+    function createQuestion(){
+        var modalInstance = $uibModal.open({
+            animation: true,
+            templateUrl: 'views/pages/question/addQuestionModal.html',
+            windowClass: 'show',
+            size : 'lg',
+            controller: function ($scope,$uibModalInstance,questionService) {
+                 
+                $scope.uiConfig = {
+                    model : {
+                        question : null,
+                        description: null,
+                        topic: null
+                    },
+                    editMode : false,
+                    topicList : null
+                }
+                init();
 
-        $http({
-            method: 'POST',
-            url: 'http://'+ipAddress+'/api/v1.0/question',
-            data: questionData,
-            headers: {'Content-Type': 'application/json'}
-        }).then(function(data){
-            getQuestion()
-        }).catch(function(err){
-            console.log(err);
-        })
+                function init(){
+                    questionService.getTopics().then((data)=>{
+                        $scope.uiConfig.topicList=data
+                    })
+                }
 
+
+                $scope.create = function(questionData){
+                    questionService.create(questionData).then((result)=>{
+                        getQuestion(null);
+                        $uibModalInstance.close();
+                    })
+                }
+                $scope.cancel = function(){
+                    $uibModalInstance.close()
+                }
+            }
+        });
+
+       
     }
 
     function getQuestion(filter){
@@ -94,6 +104,48 @@ function QuestionCtrl($scope,$http,$sce) {
             console.log(err);
         })
 
+    }
+    function deleteQuestion(questionData){
+        var questionId = questionData._id.$oid;
+            questionService.deleteQuestion(questionId)
+            .then((data)=>{
+                getQuestion(null)
+            }).catch((err)=>{
+                console.log('error')
+            })
+    }
+    function updateQuestion(questionData){
+        var questionId = questionData._id.$oid;
+        var modalInstance = $uibModal.open({
+            animation: true,
+            templateUrl: 'views/pages/question/addQuestionModal.html',
+            windowClass: 'show',
+            size : 'lg',
+            controller: function ($scope,$uibModalInstance,questionService) {
+                 
+                $scope.uiConfig = {
+                    model : questionData,
+                    editMode : true,
+                    topicList : null
+                }
+                init();
+
+                function init(){
+                    questionService.getTopics().then(data=>$scope.uiConfig.topicList=data)
+                }
+
+
+                $scope.update = function(questionData){
+                    questionService.update(questionId,questionData).then((result)=>{
+                        getQuestion(null);
+                        $uibModalInstance.close();
+                    })
+                }
+                $scope.cancel = function(){
+                    $uibModalInstance.close()
+                }
+            }
+        });
     }
     function makeQueryString(obj) {
         var str = [];
