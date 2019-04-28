@@ -1,0 +1,30 @@
+<div class="animated fadeIn" style="margin:5px">
+    <div class="row">
+        <div class="col-sm-6 col-md-3" ng-repeat="eachData in uiConfig.allBlogIdentifiers">
+            <div class="card">
+                <div class="card-header" style="font-weight: bold;font-size:1.2em">
+                    {{eachData.key}}
+
+                </div>
+                <div class="card-body">
+                    <button class="btn btn-success" type="link" ng-click="getBlogByIdentifier(eachData.value)"> New
+                        <span class="badge badge-light badge-pill" style="position: static;">{{eachData.new}}</span>
+                    </button>
+                    <button class="btn btn-primary" type="link"> Visited
+                        <span class="badge badge-light badge-pill" style="position: static;">{{eachData.visited}}</span>
+                    </button>
+                    <button class="btn btn-info" type="link"> Total
+                        <span class="badge badge-light badge-pill" style="position: static;">{{eachData.total}}</span>
+                    </button>
+                </div>
+                <div class="card-footer">
+                    <div class="card-header-actions">
+                        <a class="card-header-action btn-setting">
+                            <i class="icon-refresh icons" style="cursor:pointer;font-size:1.3em;font-weight:bold" ng-click="scrapeByIdentifier(eachData.value)"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

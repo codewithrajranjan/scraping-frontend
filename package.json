@@ -21,9 +21,7 @@
     "oclazyload": "^1.1.0",
     "popper.js": "1.12.9",
     "simple-line-icons": "^2.4.1",
-    "toastr": "^2.1.4"
-  },
-  "devDependencies": {
+    "toastr": "^2.1.4",
     "browser-sync": "2.23.6",
     "del": "^3.0.0",
     "gulp": "^3.9.1",

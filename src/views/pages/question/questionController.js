@@ -3,11 +3,11 @@ angular
     .module('app')
     .controller('QuestionCtrl', QuestionCtrl)
 
-QuestionCtrl.$inject = ['$scope','$http','$sce','$uibModal','questionService','helperFunctionService'];
-function QuestionCtrl($scope,$http,$sce,$uibModal,questionService,helperFunctionService) {
+QuestionCtrl.$inject = ['$scope','$http','$sce','$uibModal','questionService','helperFunctionService','appSettings'];
+function QuestionCtrl($scope,$http,$sce,$uibModal,questionService,helperFunctionService,appSettings) {
 
     //var ipAddress = "192.168.0.103:9000"
-    var ipAddress = "localhost:9000"
+    var ipAddress = appSettings.getServerAddress()
     //var ipAddress = "localhost"
     //var ipAddress = "192.168.0.108"
     // function declarations 

@@ -3,69 +3,42 @@ angular
     .module('app')
     .controller('ScrapeCtrl', ScrapeCtrl)
 
-ScrapeCtrl.$inject = ['$scope','$http','$sce','blogService'];
-function ScrapeCtrl($scope,$http,$sce,blogService) {
+ScrapeCtrl.$inject = ['$scope','$http','$sce','blogService','appSettings','$state'];
+function ScrapeCtrl($scope,$http,$sce,blogService,appSettings,$state) {
 
-    //var ipAddress = "192.168.0.103:9000"
-    var ipAddress = "localhost:9000"
-    //var ipAddress = "localhost"
-    //var ipAddress = "192.168.0.108"
-    // function declarations 
-    $scope.updateBlogStatus = updateBlogStatus;
 
-    $scope.getPosts = getPosts
-
+    var stateParams = $state.params
     $scope.uiConfig = {
-        tagSelected : null
-    }
-    
-    getAllTags()
-
-
-    $scope.fetchBlogWithTag = function(tag){
-
-        if(tag == 'all'){
-            getPosts('new') 
-        }else{
-            $http.get('http://'+ipAddress+'/api/v1.0/blogs?tag='+tag)
-                .then(function(data){
-                    $scope.blogList = data.data
-                    $scope.blogList.forEach(function(item){
-                        item.label = $sce.trustAsHtml(item.label);
-                    })
-                    $scope.totalNewPost = $scope.blogList.length
-                }).catch(function(err){
-                    console.log(err)
-                })
-        }
-
+        'identifier' : null,
+        'blogList' : []
     }
 
-    $scope.fetchBlogWithTag('mongodb-blog')
+    // fetching the state params identifier
+    if(stateParams.identifier && stateParams.identifier != null){
+        $scope.uiConfig.identifier = stateParams.identifier;
+    }else{
+        alert("Access using identifier");
+        return false;
+    }
 
-    function getAllTags(){
-        blogService.getBlogTags()
-            .then(function(data){
-                $scope.tagList = data
-            }).catch(function(err){
-                console.log(err)
+
+    // making the query params
+    var queryParam = "?identifier="+$scope.uiConfig.identifier
+    blogService.getPosts(queryParam)
+        .then(function(result){
+            console.log(result)
+            var blogList = result.data
+            blogList.forEach(function(item){
+                item.label = $sce.trustAsHtml(item.label);
             })
+            $scope.blogList = blogList
+        
+        }).catch(function(err){
+            alert(err)
+        })
 
-    }
 
-    function getPosts(postStatus){
-        $http.get('http://'+ipAddress+'/api/v1.0/blogs?status='+postStatus)
-            .then(function(data){
-                $scope.blogList = data.data
-                $scope.blogList.forEach(function(item){
-                        item.label = $sce.trustAsHtml(item.label);
-                })
-                $scope.totalNewPost = $scope.blogList.length
-            }).catch(function(err){
-                console.log(err)
-            })
 
-    }
     function updateBlogStatus(blogData,statusCode,indexInBlogList){
         if(statusCode=='delete'){
             $scope.blogList.splice(indexInBlogList,1)
@@ -80,12 +53,5 @@ function ScrapeCtrl($scope,$http,$sce,blogService) {
     }
 
 
-    $scope.scrape = function(){
-        $http.post('http://'+ipAddress+'/api/v1.0/scrape')
-            .then(function(data){
-                //getPosts('new')
-            }).catch(function(err){
-                console.log(err)
-            })
-    }
+    
 }
