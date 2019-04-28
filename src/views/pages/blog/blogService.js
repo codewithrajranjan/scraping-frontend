@@ -8,7 +8,8 @@ function blogService($http,appSettings) {
         getBlogTags:getBlogTags,
         getIdentifiers: getIdentifiers,
         scrape : scrape,
-        scrapeByIdentifer: scrapeByIdentifer
+        scrapeByIdentifer: scrapeByIdentifer,
+        deletePost:deletePost
     }
 
     function getBlogTags(){
@@ -67,6 +68,18 @@ function blogService($http,appSettings) {
                     reject(err)
                 })
         })
+    }
+    function deletePost(postId){
+        return new Promise(function(resolve,reject){
+            var url  = 'http://'+appSettings.getServerAddress()+'/api/v1.0/blog/'+postId+'/status/delete';
+            $http.post(url)
+                .then(function(data){
+                    resolve(data)
+                }).catch(function(err){
+                    reject(err)
+                })
+        })
+
     }
 }
 

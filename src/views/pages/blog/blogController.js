@@ -10,8 +10,12 @@ function ScrapeCtrl($scope,$http,$sce,blogService,appSettings,$state) {
     var stateParams = $state.params
     $scope.uiConfig = {
         'identifier' : null,
-        'blogList' : []
+        'blogList' : [],
+        'deletePost' : deleteBlog
     }
+
+
+
 
     // fetching the state params identifier
     if(stateParams.identifier && stateParams.identifier != null){
@@ -39,17 +43,14 @@ function ScrapeCtrl($scope,$http,$sce,blogService,appSettings,$state) {
 
 
 
-    function updateBlogStatus(blogData,statusCode,indexInBlogList){
-        if(statusCode=='delete'){
-            $scope.blogList.splice(indexInBlogList,1)
-        }
-        var id = blogData._id.$oid
-        $http.post('http://'+ipAddress+'/api/v1.0/blog/'+id+'/status/'+statusCode)
-            .then(function(data){
-                //getPosts('new')
-            }).catch(function(err){
-                console.log(err)
-            })
+    function deleteBlog(blogData,index){
+        $scope.blogList.splice(index,1)
+        blogService.deletePost(blogData['id'])
+        .then(function(data){
+            console.log(data)
+        }).catch(function(err){
+            console.log(err)
+        })
     }
 
 
