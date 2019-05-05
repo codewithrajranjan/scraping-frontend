@@ -11,14 +11,26 @@ function projectController($scope,$state,blogService) {
     $scope.goToQuestionsPage = goToQuestionsPage;
     $scope.goToDashboard = goToDashboard
     $scope.scrape = scrape
+    $scope.uiConfig = {
+        searchText : null,
+        search : search
 
+    }
 
+    function search(searchText){
+        if(searchText == null){
+            alert("Provide a search text")
+            return false;
+        }
+        $state.go('appSimple.blog',{"searchtext": searchText},{inherit: false})
+
+    }
     function goToQuestionsPage(){
         $state.go('appSimple.question')
     }
 
     function goToBlogsPage(){
-        $state.go('appSimple.blog')
+        $state.go('appSimple.blog',{reload: true},{inherit:false})
     }
     function goToDashboard(){
         $state.go('appSimple.dashboard')

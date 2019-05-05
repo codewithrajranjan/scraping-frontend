@@ -9,7 +9,8 @@ function blogService($http,appSettings) {
         getIdentifiers: getIdentifiers,
         scrape : scrape,
         scrapeByIdentifer: scrapeByIdentifer,
-        deletePost:deletePost
+        deletePost:deletePost,
+        updatePost: updatePost
     }
 
     function getBlogTags(){
@@ -73,6 +74,19 @@ function blogService($http,appSettings) {
         return new Promise(function(resolve,reject){
             var url  = 'http://'+appSettings.getServerAddress()+'/api/v1.0/blog/'+postId+'/status/delete';
             $http.post(url)
+                .then(function(data){
+                    resolve(data)
+                }).catch(function(err){
+                    reject(err)
+                })
+        })
+
+    }
+    function updatePost(postId,data){
+        return new Promise(function(resolve,reject){
+            var url  = 'http://'+appSettings.getServerAddress()+'/api/v1.0/blog/'+postId;
+            console.log(url,data)
+            $http.put(url,data)
                 .then(function(data){
                     resolve(data)
                 }).catch(function(err){

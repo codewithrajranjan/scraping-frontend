@@ -54,37 +54,6 @@ angular
                     }],
                 }
             })
-            .state('app.main', {
-                url: '/dashboard1',
-                templateUrl: 'views/main.html',
-                //page title goes here
-                ncyBreadcrumb: {
-                    label: 'Home',
-                },
-                //page subtitle goes here
-                params: { subtitle: 'Welcome to ROOT powerfull Bootstrap & AngularJS UI Kit' },
-                resolve: {
-                    loadPlugin: ['$ocLazyLoad', function ($ocLazyLoad) {
-                        // you can lazy load files for an existing module
-                        return $ocLazyLoad.load([
-                            {
-                                serie: true,
-                                name: 'chart.js',
-                                files: [
-                                    'node_modules/chart.js/dist/Chart.min.js',
-                                    'node_modules/angular-chart.js/dist/angular-chart.min.js'
-                                ]
-                            },
-                        ]);
-                    }],
-                    loadMyCtrl: ['$ocLazyLoad', function($ocLazyLoad) {
-                        // you can lazy load controllers
-                        return $ocLazyLoad.load({
-                            files: ['js/controllers/main.js']
-                        });
-                    }]
-                }
-            })
             .state('appSimple', {
                 abstract: true,
                 templateUrl: 'views/common/layouts/simple.html',
@@ -104,7 +73,6 @@ angular
                 }
             })
 
-        // Additional Pages
             .state('appSimple.login', {
                 url: '/login',
                 templateUrl: 'views/pages/login.html'
@@ -114,20 +82,7 @@ angular
                 templateUrl: 'views/pages/register.html'
             })
             .state('appSimple.blog', {
-                url: '/blogs',
-                templateUrl: 'views/pages/blog/blog.html',
-                controller : 'ScrapeCtrl',
-                resolve: {
-                    loadMyCtrl: ['$ocLazyLoad', function($ocLazyLoad) {
-                        // you can lazy load controllers
-                        return $ocLazyLoad.load({
-                            files: ['views/pages/blog/blogController.js']
-                        });
-                    }]
-                }
-            })
-            .state('appSimple.blogByIdentifier', {
-                url: '/blogs/:identifier',
+                url: '/blogs?identifier&status&searchtext&tag&page',
                 templateUrl: 'views/pages/blog/blog.html',
                 controller : 'ScrapeCtrl',
                 resolve: {

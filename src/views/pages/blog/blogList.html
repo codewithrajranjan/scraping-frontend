@@ -1,3 +1,9 @@
+<div class="card">
+    <div class="card-body">
+        <button type="button" class="btn btn-primary pull-left" ng-click="uiConfig.previousPage()"> Back</button>
+        <button type="button" class="btn btn-primary pull-right" ng-click="uiConfig.nextPage()">Next </button>
+    </div>
+</div>
 <table class="table table-striped">
     <tbody>
         <tr ng-repeat="eachData in blogList track by $index">
@@ -9,6 +15,7 @@
             </td>
             <td>
                 <span style="margin-left:5px"><i class="icon-eye icons optionsIcon" ng-click="updateBlogStatus(eachData,'watchlater',$index)"></i></span>
+                <span style="margin-left:5px"><i class="icon-social-youtube icons optionsIcon" ng-click="uiConfig.updatePostTag(eachData,'youtube',$index)"></i></span>
             </td>
             <td>
                 <h6>
@@ -16,8 +23,11 @@
                         <span ng-bind-html="eachData.label">
                         </span>
                         <span ng-if="eachData.createdAt!=''" style="font-size:0.7em;font-weight:500;color:maroon">( {{eachData.createdAt}} )</span>
+
+
                     </a>
                 </h6>
+                <button class="badge badge-primary" ng-repeat="eachTag in eachData.tags" style="margin-right:10px;padding:5px" ng-click="uiConfig.searchBasedOnTag(eachTag)">{{eachTag}}</button>
             </td>
             <td>
                 <i class="icon-trash icons  optionsIcon" ng-click="uiConfig.deletePost(eachData,$index)"></i>

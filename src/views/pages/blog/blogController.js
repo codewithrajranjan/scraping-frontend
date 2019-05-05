@@ -3,31 +3,28 @@ angular
     .module('app')
     .controller('ScrapeCtrl', ScrapeCtrl)
 
-ScrapeCtrl.$inject = ['$scope','$http','$sce','blogService','appSettings','$state'];
-function ScrapeCtrl($scope,$http,$sce,blogService,appSettings,$state) {
+ScrapeCtrl.$inject = ['$scope','$http','$sce','blogService','appSettings','$state','$location','$state'];
+function ScrapeCtrl($scope,$http,$sce,blogService,appSettings,$state,$location,$state) {
 
 
     var stateParams = $state.params
     $scope.uiConfig = {
         'identifier' : null,
         'blogList' : [],
-        'deletePost' : deleteBlog
+        'deletePost' : deleteBlog,
+        'searchBasedOnTag' : searchBasedOnTag,
+        "nextPage" : nextPage,
+        "previousPage" : previousPage,
+        "updatePostTag": updatePostTag
     }
 
-
-
-
-    // fetching the state params identifier
-    if(stateParams.identifier && stateParams.identifier != null){
-        $scope.uiConfig.identifier = stateParams.identifier;
-    }else{
-        alert("Access using identifier");
-        return false;
+    var data = $location.url() 
+    var result = data.split("?")
+    var queryParam = ""
+    if(result.length>1){
+        queryParam = "?"+result[1]
     }
 
-
-    // making the query params
-    var queryParam = "?identifier="+$scope.uiConfig.identifier
     blogService.getPosts(queryParam)
         .then(function(result){
             console.log(result)
@@ -52,7 +49,61 @@ function ScrapeCtrl($scope,$http,$sce,blogService,appSettings,$state) {
             console.log(err)
         })
     }
+    function searchBasedOnTag(tag){
+        console.log(tag)
+        $state.go('appSimple.blog',{"tag": tag},{inherit:false},{reload: true})
+    }
 
+    function nextPage(){
+        var data = $location.url() 
+        var result = data.split("?")
+        var pageNumber = 2
+        if(result.length>1){
+            result = result[1].split("&")
+            result.forEach(function(eachQueryParam){
+                if(eachQueryParam.indexOf("page=")!=-1){
+                    currentPageNumber = eachQueryParam.split("=")[1]
+                    pageNumber = parseInt(currentPageNumber) + 1;
+                }
+            });
+        }
+        $state.go('appSimple.blog',{"page": pageNumber},{reload: true})
+
+    }
+    function previousPage(){
+        var data = $location.url() 
+        var result = data.split("?")
+        var pageNumber = 2
+        if(result.length>1){
+            result = result[1].split("&")
+            result.forEach(function(eachQueryParam){
+                if(eachQueryParam.indexOf("page=")!=-1){
+                    currentPageNumber = eachQueryParam.split("=")[1]
+                    pageNumber = parseInt(currentPageNumber) - 1;
+                }
+            });
+            if(pageNumber < 1) {
+                alert("No more back")
+                return false;
+            }
+
+        } 
+        $state.go('appSimple.blog',{"page": pageNumber},{reload: true})
+
+    }
+    function updatePostTag(postData,tag,index){
+        var postId = postData['_id'];
+        var data = {
+            tag : tag
+        }
+        blogService.updatePost(postId,data)
+        .then(function(data){
+
+        }).catch(function(err){
+
+        })
+
+    }
 
     
 }

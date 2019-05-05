@@ -19,8 +19,7 @@ function DashboardCtrl($scope,$http,$sce,blogService,appSettings,$state) {
     })
 
     $scope.getBlogByIdentifier = function(identifier){
-            // changing the state 
-            $state.go('appSimple.blogByIdentifier',{'identifier': identifier});
+            $state.go('appSimple.blog',{'identifier': identifier});
     }
     $scope.scrapeByIdentifier = function(identifier){
         blogService.scrapeByIdentifer(identifier)

@@ -58,5 +58,9 @@
   "author": "Łukasz Holeczek",
   "homepage": "http://coreui.io",
   "copyright": "Copyright 2018 creativeLabs Łukasz Holeczek",
-  "license": "MIT"
+  "license": "MIT",
+  "devDependencies": {
+    "gulp-clean": "^0.4.0",
+    "gulp-inject-string": "^1.1.2"
+  }
 }

@@ -10,7 +10,8 @@ function appSettings($http) {
     }
 
     function getServerAddress(){
-        return "localhost:9005";
+        console.log("@@@@@@@@@@@@@@@@@@")
+        return serverAddress;
     }
 
     
