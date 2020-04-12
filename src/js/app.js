@@ -17,11 +17,13 @@ angular
         'ui.router',
         'oc.lazyLoad',
         'ncy-angular-breadcrumb',
-        'angular-loading-bar'
+        'angular-loading-bar',
+        'chart.js'
     ])
-    .config(['cfpLoadingBarProvider', function(cfpLoadingBarProvider) {
+    .config(['cfpLoadingBarProvider','ChartJsProvider', function(cfpLoadingBarProvider,ChartJsProvider) {
         cfpLoadingBarProvider.includeSpinner = false;
         cfpLoadingBarProvider.latencyThreshold = 1;
+        ChartJsProvider.setOptions({ colors : [ '#803690', '#00ADF9', '#DCDCDC', '#46BFBD', '#FDB45C', '#949FB1', '#4D5360'] });
     }])
     .run(['$rootScope', '$state', '$stateParams', function($rootScope, $state, $stateParams) {
         $rootScope.$on('$stateChangeSuccess',function(){

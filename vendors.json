@@ -35,6 +35,8 @@
     "node_modules/moment/min/moment.min.js",
     "node_modules/oclazyload/dist/ocLazyLoad.min.js",
     "node_modules/popper.js/dist/umd/popper.min.js",
-    "node_modules/popper.js/dist/umd/popper.min.js.map"
+    "node_modules/popper.js/dist/umd/popper.min.js.map",
+    "node_modules/chart.js/Chart.min.js",
+    "node_modules/angular-chart.js/dist/angular-chart.min.js"
   ]
 }

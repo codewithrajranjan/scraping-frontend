@@ -119,5 +119,17 @@ angular
                         });
                     }]
                 }
+            }).state('appSimple.products', {
+                url: '/product',
+                templateUrl: 'views/pages/product/product.html',
+                controller : 'ProductCtrl',
+                resolve: {
+                    loadMyCtrl: ['$ocLazyLoad', function($ocLazyLoad) {
+                        // you can lazy load controllers
+                        return $ocLazyLoad.load({
+                            files: ['views/pages/product/productController.js']
+                        });
+                    }]
+                }
             })
     }]);

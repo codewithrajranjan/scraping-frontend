@@ -9,7 +9,8 @@ function projectController($scope,$state,blogService) {
 
     $scope.goToBlogsPage = goToBlogsPage;
     $scope.goToQuestionsPage = goToQuestionsPage;
-    $scope.goToDashboard = goToDashboard
+    $scope.goToDashboard = goToDashboard;
+    $scope.goToProducts = goToProducts;
     $scope.scrape = scrape
     $scope.uiConfig = {
         searchText : null,
@@ -34,6 +35,9 @@ function projectController($scope,$state,blogService) {
     }
     function goToDashboard(){
         $state.go('appSimple.dashboard')
+    }
+    function goToProducts(){
+        $state.go('appSimple.products')
     }
     function scrape(){
         blogService.scrape()

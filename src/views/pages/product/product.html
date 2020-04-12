@@ -1,0 +1,18 @@
+<div class="app">
+    <div class="container-flex">
+        <div class="card">
+            <div class="card-body">
+                <div class="row"> 
+
+                    <div class="col-md-6" ng-repeat="eachProduct in uiConfig.productData">
+                        <h1>{{eachProduct.productName}}</h1>
+                        <canvas id="line" class="chart chart-line" chart-data="eachProduct.data"
+                            chart-labels="eachProduct.labels" chart-series="eachProduct.series" chart-options="uiConfig.options"
+                            chart-dataset-override="uiConfig.datasetOverride" chart-click="onClick">
+                        </canvas>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
