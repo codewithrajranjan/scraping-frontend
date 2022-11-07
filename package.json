@@ -19,7 +19,7 @@
     "del": "^3.0.0",
     "flag-icon-css": "2.9.0",
     "font-awesome": "^4.7.0",
-    "gulp": "^3.9.1",
+    "gulp": "^4.0.2",
     "gulp-autoprefixer": "4.1.0",
     "gulp-bower-src": "^0.1.0",
     "gulp-concat": "^2.6.1",
